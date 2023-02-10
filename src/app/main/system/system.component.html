@@ -1,0 +1,30 @@
+<div class="expanel-main">
+    <div class="expanel-subnav">
+      <div class="expanel-modulenav">
+        <div class="expanel-modulenav-group">
+          <ul class="expanel-modulenav-list">
+            <li class="expanel-modulenav-item">
+              <span class="expanel-modulenav-link" [routerLinkActive]="['expanel-modulenav-link-active']" [routerLink]="['dashboard']" >
+                <i class="expanel-modulenav-icon material-icons">dashboard</i>
+                <span class="expanel-modulenav-label">Dashboard</span>
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div class="expanel-modulenav-group">
+          <span class="expanel-modulenav-group-title">Access</span>
+          <ul class="expanel-modulenav-list">
+            <li class="expanel-modulenav-item">
+              <span class="expanel-modulenav-link" [routerLinkActive]="['expanel-modulenav-link-active']" [routerLink]="['users']">
+                <i class="expanel-modulenav-icon material-icons">person</i>
+                <span class="expanel-modulenav-label">Users</span>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="expanel-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>

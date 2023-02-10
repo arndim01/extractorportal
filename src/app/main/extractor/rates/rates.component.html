@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <mat-card>
+                <perfect-scrollbar style="max-height: 570px;" class="mt-1">
+                    <div class="container">
+                        <mat-table [dataSource]="dataSource">
+                            <ng-container matColumnDef="id">
+                                <mat-header-cell *matHeaderCellDef>Value</mat-header-cell>
+                                <mat-cell *matCellDef="let row"><p class="text-dark text-truncate custom-text-size-10">  {{row.id}} </p></mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="message">
+                                <mat-header-cell *matHeaderCellDef>Message</mat-header-cell>
+                                <mat-cell *matCellDef="let row"><p class="text-dark text-truncate custom-text-size-10">  </p></mat-cell>
+                            </ng-container>
+                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'hightlight': selectedRowIndex == row.Id}" ></mat-row>
+                        </mat-table>
+                    </div> 
+                </perfect-scrollbar>
+            </mat-card>                
+        </div>
+        <div class="col">
+            
+        </div>
+    </div>
+</div>

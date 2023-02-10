@@ -1,0 +1,76 @@
+<div class="expanel-main">
+  <div class="expanel-subnav">
+    <div class="expanel-modulenav">
+      <div class="expanel-modulenav-group">
+        <ul class="expanel-modulenav-list">
+          <li class="expanel-modulenav-item">
+            <span class="expanel-modulenav-link expanel-modulenav-link-active">
+              <i class="expanel-modulenav-icon material-icons">create_new_folder </i>
+              <span class="expanel-modulenav-label">Files</span>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="expanel-content">
+    <div class="container">
+        <div class="row">
+            <button mat-flat-button class="flex-column" (click)="openManager()"><i class="material-icons">file_upload</i> Add file</button>
+        </div>
+        <div class="row">
+          <div class="col-6">
+              <mat-form-field class="flex-column expanel-w-100">
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search contract">
+              </mat-form-field>
+          </div>
+          <div class="col-6">
+              <mat-paginator  class="transparent-paginator" [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+          </div>
+        </div>
+    </div>
+    <perfect-scrollbar style="max-height: 530px;" class="mt-1">
+        <mat-card>
+            <mat-table [dataSource]="dataSource" >
+                <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef >Carrier</mat-header-cell>
+                    <mat-cell *matCellDef="let row"><img class="small-icon rounded d-block" src="assets/images/{{row.carrierLogo}}" alt="{{row.carrierName}}" title="{{row.carrierName}}"/></mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="cid">
+                    <mat-header-cell *matHeaderCellDef >Contract id</mat-header-cell>
+                    <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{row.contractId}}</p></mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="aid">
+                    <mat-header-cell *matHeaderCellDef>Amendment id</mat-header-cell>
+                    <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{row.amendmentId}}</p></mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="cot">
+                    <mat-header-cell *matHeaderCellDef>Process type</mat-header-cell>
+                    <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{row.contractType}}</p></mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="createdon">
+                    <mat-header-cell *matHeaderCellDef>Created on </mat-header-cell>
+                    <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{row.createdOn | date: 'MM/dd/yyyy h:mm a'}}</p></mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="createdby">
+                  <mat-header-cell *matHeaderCellDef>Created by </mat-header-cell>
+                  <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{row.createdBy.firstName}}&nbsp;{{row.createdBy.lastName}}</p></mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="started">
+                  <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                  <mat-cell *matCellDef="let row"><mat-slide-toggle (change)="onChange($event, row)" [(ngModel)]="row.started">Activate</mat-slide-toggle></mat-cell>
+              </ng-container>
+                <!-- <ng-container matColumnDef="act">
+                    <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                    <mat-cell *matCellDef="let row" >
+                        <mat-icon class="icon-button" (click)="openDialog(row)" fontSet="fa" fontIcon="fa-pencil"></mat-icon>
+                    </mat-cell>
+                  </ng-container> -->
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;">
+                  </mat-row>
+              </mat-table>
+        </mat-card>
+    </perfect-scrollbar>
+  </div>
+</div>

@@ -1,0 +1,91 @@
+<form [formGroup]="contractForm" (ngSubmit)="onSubmit()">
+<div mat-dialog-content>
+      <div>
+            <button class="mr-2" *ngIf="!isFileLoading && uploadContractModel == null" (click)="onNoClick()" mat-raised-button>Close</button>
+            <button [disabled]="isFileLoading" class="btn-file-upload" mat-raised-button color="warn" (click)="onClick()">
+                  <mat-icon>file_upload</mat-icon>Upload Contract&nbsp;
+            </button>
+            <ul class="loading-bar">
+                  <li class="ex-mt-small" *ngFor="let cservice of startLoadFileService" [@fadeInOut]= "cservice.state">
+                        <mat-progress-bar [value]="cservice.progress"></mat-progress-bar>
+                        <small id="file-label">{{cservice.funcName}} </small>
+                  </li>
+            </ul>
+            <input type="file" id="fileUpload" name="fileUpload" accept="{{accept}}" style="display:none;"/>
+      </div>
+
+            <div class="container mt-2" *ngIf="successUpload">
+                        <div class="row">
+                              <div class="col-6">
+                                    <mat-form-field>
+                                          <mat-select placeholder="Pick Carrier" formControlName="carrier" [ngClass]="{'is-valid': submitted && f.carrier.errors}" > 
+                                                <mat-option *ngFor="let carrier of carriers" [value]="carrier.value">
+                                                {{carrier.viewValue}}
+                                                </mat-option>
+                                          </mat-select>
+                                          <mat-error *ngIf="submitted && f.carrier.errors">
+                                                <div *ngIf="f.carrier.errors.required"> Carrier is <strong>required</strong> </div>
+                                          </mat-error>
+                                    </mat-form-field>
+                              </div>
+                              <div class="col-6">
+                                    <mat-form-field>
+                                          <mat-select placeholder="Amendment type" formControlName="amdtype" [ngClass]="{'is-valid': submitted && f.amdtype.errors}">
+                                          <mat-option *ngFor="let amd of amdType" [value]="amd.value">
+                                          {{amd.viewValue}}
+                                          </mat-option>
+                                          </mat-select>
+                                          <mat-error *ngIf="submitted && f.amdtype.errors">
+                                                <div *ngIf="f.amdtype.errors.required"> Amendment type is <strong>required</strong> </div>
+                                          </mat-error>
+                                    </mat-form-field>
+                              </div>
+                        </div>
+                        <div class="row">
+                              <div class="col-6">
+                                    <mat-form-field>
+                                    <input matInput [matDatepicker]="effectivePicker" placeholder="Effective date" formControlName="effectiveDate" [ngClass]="{'is-valid': submitted && f.effectiveDate.errors}">
+                                    <mat-datepicker-toggle matSuffix [for]="effectivePicker"></mat-datepicker-toggle>
+                                    <mat-datepicker #effectivePicker disabled="false"></mat-datepicker>
+                                    <mat-error *ngIf="submitted && f.effectiveDate.errors">
+                                                <div *ngIf="f.effectiveDate.errors.required"> Effective date is <strong>required</strong> </div>
+                                    </mat-error>
+                                    </mat-form-field>
+                              
+                              </div>
+                              <div class="col-6">
+                                    <mat-form-field>
+                                          <input matInput [matDatepicker]="expirationPicker" placeholder="Expiration date" formControlName="expirationDate" [ngClass]="{'is-valid': submitted && f.expirationDate.errors}">
+                                          <mat-datepicker-toggle matSuffix [for]="expirationPicker"></mat-datepicker-toggle>
+                                          <mat-datepicker #expirationPicker disabled="false"></mat-datepicker>
+                                          <mat-error *ngIf="submitted && f.expirationDate.errors">
+                                                      <div *ngIf="f.expirationDate.errors.required"> Expiration date is <strong>required</strong></div>
+                                          </mat-error>
+                                    </mat-form-field>
+                              </div>
+                        </div>
+                        <div class="row">
+                              <div class="col-6">
+                                    <mat-form-field>
+                                          <input matInput placeholder="Contract Id" formControlName="contractId" [ngClass]="{'is-valid': submitted && f.contractId.errors}" >
+                                          <mat-error *ngIf="submitted && f.contractId.errors">
+                                                      <div *ngIf="f.contractId.errors.required"> Contract id is <strong>required</strong></div>
+                                                </mat-error>
+                                    </mat-form-field>
+                              </div>
+                              <div class="col-6">
+                                    <mat-form-field>
+                                          <input matInput placeholder="Amendment Id" formControlName="amdid" [ngClass]="{'is-valid': submitted && f.amdid.errors}" >
+                                          <mat-error *ngIf="submitted && f.amdid.errors">
+                                          <div *ngIf="f.amdid.errors.required"> Amendment id is <strong>required</strong></div>
+                                    </mat-error>
+                                    </mat-form-field>
+                              </div>
+                        </div>
+            </div>
+</div>
+<div mat-dialog-actions *ngIf="!isFileLoading && uploadContractModel != null">
+      <button *ngIf="!isFileLoading && uploadContractModel != null" (click)="onNoClick()" mat-raised-button>Close</button>
+      <button *ngIf="!isFileLoading && uploadContractModel != null" mat-raised-button color="primary">Start workflow</button>
+</div>
+</form>     

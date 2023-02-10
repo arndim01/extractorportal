@@ -1,0 +1,23 @@
+.r-paginator{
+    display: inline-block;
+    width: 100%;
+}
+mat-card{
+    padding: 0px;
+}
+mat-row:hover{
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+table{
+    width: 100%;
+}
+.mat-header-row {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    background-color: inherit;
+}
+.mat-full-width{
+    width: 100%;
+}

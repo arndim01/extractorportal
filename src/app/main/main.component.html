@@ -1,0 +1,78 @@
+
+<div class="expanel">
+  <div class="expanel-mainnav expanel-mainnav-small">
+      <div class="mainnav mainnav-small">
+      <div class="mainnav-static">
+          <ul class="mainnav-list">
+          <!-- <li class="mainnav-entry">
+              <span class="mainnav-link">
+              <i class="mainnav-icon material-icons">search</i>
+              <span class="mainnav-label"></span>
+              </span>
+          </li> -->
+          <li class="mainnav-entry">
+              <span class="mainnav-link" [routerLinkActive]="['mainnav-link-active']" [routerLink]="['workflow']" matTooltip="Workflow" [matTooltipPosition]="navTooltipPosition">
+              <i class="mainnav-icon material-icons">home</i>
+              <span class="mainnav-label"></span>
+              </span>
+          </li>
+          </ul>
+      </div>
+      <div class="mainnav-modules">
+          <ul class="mainnav-list">
+            <li *ngIf="userClaims.value == 'Admin'" class="mainnav-entry">
+                    <span class="mainnav-link" [routerLinkActive]="['mainnav-link-active']" [routerLink]="['extractor']" matTooltip="Extractor" [matTooltipPosition]="navTooltipPosition">
+                    <i class="mainnav-icon material-icons">drag_handle</i>
+                    <span class="mainnav-label"></span>
+                    </span>
+            </li>    
+          <li *ngIf="userClaims.value == 'Admin'" class="mainnav-entry">
+              <span class="mainnav-link" [routerLinkActive]="['mainnav-link-active']" [routerLink]="['library']" matTooltip="Library" [matTooltipPosition]="navTooltipPosition">
+              <i class="mainnav-icon material-icons">local_library</i>
+              <span class="mainnav-label"></span>
+              </span>
+          </li>
+          <li  *ngIf="userClaims.value == 'Admin'" class="mainnav-entry">
+              <span class="mainnav-link" [routerLinkActive]="['mainnav-link-active']" [routerLink]="['contract']" matTooltip="Contract Upload" [matTooltipPosition]="navTooltipPosition">
+                  <i class="mainnav-icon material-icons">cloud_upload</i>
+                  <span class="mainnav-label"></span>
+              </span>
+          </li>
+          <li  *ngIf="userClaims.value == 'Admin'" class="mainnav-entry">
+              <span class="mainnav-link" [routerLinkActive]="['mainnav-link-active']" [routerLink]="['system']" matTooltip="System" [matTooltipPosition]="navTooltipPosition">
+                  <i class="mainnav-icon material-icons">settings_applications</i>
+                  <span class="mainnav-label"></span>
+              </span>
+          </li>
+          </ul>
+      </div>
+      <div class="mainnav-static">
+          <ul class="mainnav-list">
+          <li class="mainnav-entry">
+              <span class="mainnav-link" [matMenuTriggerFor]="upMenu" matTooltip="Profile" [matTooltipPosition]="navTooltipPosition">
+              <i class="mainnav-icon material-icons">account_circle</i>
+              <span class="mainnav-label"></span>
+              </span>
+              <mat-menu #upMenu="matMenu">
+                  <button mat-menu-item [routerLink]="['preferences']"  >
+                  <mat-icon>face</mat-icon>
+                  <span>Preferences</span>
+              </button>
+              <button mat-menu-item (click)="logout()" >
+                  <mat-icon>exit_to_app</mat-icon>
+                  <span >Logout</span>
+              </button>
+              </mat-menu>
+          </li>
+          </ul>
+      </div>
+      <!-- <button class="mainnav-toggler" type="button">
+          <i class="material-icons">chevron_right</i>
+      </button> -->
+      </div>
+  </div>
+  <div class="expanel-main-wrapper">
+      <!-- <router-outlet></router-outlet> -->
+  </div>
+  </div>
+  

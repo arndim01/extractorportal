@@ -1,0 +1,11 @@
+.main-login{
+    background: url('/assets/images/cartographer_2X.png') #343a40!important;
+    height: 100vh;
+}
+.login-logo-svg{
+    border: solid 2px #fff;
+    border-radius: 49px;
+}
+mat-form-field{
+    width: 100%;
+}

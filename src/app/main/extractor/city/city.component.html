@@ -1,0 +1,93 @@
+<div>
+  <div class="row">
+    <div class="col-5">
+      <mat-card>
+        <div class="container">
+            <!-- <button mat-flat-button color="primary">Upload Data</button> -->
+            <mat-paginator class="r-paginator" [pageSizeOptions]="[10]"></mat-paginator>
+        </div>
+      </mat-card>
+      <!-- <perfect-scrollbar style="max-height: 570px" [config]="config" class="mt-1"> -->
+        <mat-card class="mt-1">
+          <table mat-table [dataSource]="dataSource" matSort>
+              <!-- Code Column -->
+              <ng-container matColumnDef="main_value">
+                <mat-header-cell *matHeaderCellDef> Value </mat-header-cell>
+                <mat-cell *matCellDef="let row"><p class="text-dark text-truncate">  {{row.name}} </p></mat-cell>
+              </ng-container>
+          
+              <!-- Description Column -->
+              <!-- <ng-container matColumnDef="message">
+                <mat-header-cell *matHeaderCellDef> Message </mat-header-cell>
+                <mat-cell *matCellDef="let row"></mat-cell>
+              </ng-container> -->
+               <!-- Bullet Column -->
+                
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="DisplayInfo(row)">
+              </mat-row>
+          </table>
+        </mat-card>
+      <!-- </perfect-scrollbar> -->
+    </div>
+    <div class="col-7">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title><h4>City Look Up</h4></mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="container">
+            <form [formGroup]="searchForm" class="c-mat-form-field">
+              <mat-form-field class="text-mat-form-field custom-text-size-12 mat-full-width"> 
+                  <input matInput
+                  [matAutocomplete]="auto"
+                  placeholder="Find city" 
+                  formControlName='cityInput'>
+              </mat-form-field>
+              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="addCity($event)">
+                      <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option>
+                      <ng-container *ngIf="!isLoading">
+                        <mat-option *ngFor="let ccode of filteredCode" [value]="ccode">
+                          <span class="ex-label">{{ ccode.uncode }}</span>
+                          <span class="ex-label-small"> -{{ ccode.name }}&nbsp;{{ ccode.state }}&nbsp;{{ ccode.country }}</span>
+                        </mat-option>
+                      </ng-container>
+              </mat-autocomplete>
+            </form>
+          </div>
+          <div class="container">
+            <mat-table [dataSource]="dataSearch">
+              <ng-container matColumnDef="city_name">
+                <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+                <mat-cell *matCellDef="let row"><p class="text-dark text-truncate"> </p></mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="city_state">
+                <mat-header-cell *matHeaderCellDef> State </mat-header-cell>
+                <mat-cell *matCellDef="let row"><p class="text-dark text-truncate"> </p></mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="city_country">
+                <mat-header-cell *matHeaderCellDef> Country </mat-header-cell>
+                <mat-cell *matCellDef="let row"><p class="text-dark text-truncate"> </p></mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="city_fcode">
+                <mat-header-cell *matHeaderCellDef> Full Code </mat-header-cell>
+                <mat-cell *matCellDef="let row"><p class="text-dark text-truncate"> </p></mat-cell>
+              </ng-container>
+              
+              <ng-container matColumnDef="action">
+                  <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                  <mat-cell *matCellDef="let row"><p class="text-dark text-truncate"> </p></mat-cell>
+                </ng-container>
+              <mat-header-row *matHeaderRowDef="displayedSearchColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedSearchColumns;" (click)="DisplayInfo(row)">
+              </mat-row>
+            </mat-table>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,88 @@
+<div class="expanel-main" *ngIf="!validContractLoaded">
+    <!-- <mat-card> -->
+      <div class="expanel-subnav extract-menu">
+          <div class="expanel-modulenav">
+            <div class="expanel-modulenav-group">
+            </div>
+            <div class="expanel-modulenav-group">
+              <span class="expanel-modulenav-group-title">Extracted data</span>
+              <ul class="expanel-modulenav-list">
+
+                <li class="expanel-modulenav-item">
+                    <span class="expanel-modulenav-link" [routerLinkActive]="['expanel-modulenav-link-active']" [routerLink]="['city']">
+                      <i class="expanel-modulenav-icon material-icons">archive</i>
+                      <span class="expanel-modulenav-label">Cities</span>
+                    </span>
+                  </li>
+                  <li class="expanel-modulenav-item">
+                    <span class="expanel-modulenav-link" [routerLinkActive]="['expanel-modulenav-link-active']" [routerLink]="['commodity']">
+                      <i class="expanel-modulenav-icon material-icons">archive</i>
+                      <span class="expanel-modulenav-label">Commodity</span>
+                    </span>
+                  </li>
+                  <li class="expanel-modulenav-item">
+                      <span class="expanel-modulenav-link" [routerLinkActive]="['expanel-modulenav-link-active']" [routerLink]="['notes']">
+                        <i class="expanel-modulenav-icon material-icons">archive</i>
+                        <span class="expanel-modulenav-label">Notes</span>
+                      </span>
+                      
+                    </li>
+                    <li class="expanel-modulenav-item">
+                        <span class="expanel-modulenav-link" [routerLinkActive]="['expanel-modulenav-link-active']" [routerLink]="['rates']">
+                          <i class="expanel-modulenav-icon material-icons">archive</i>
+                          <span class="expanel-modulenav-label">Rates</span>
+                        </span>
+                    </li>
+              </ul>
+            </div>
+          </div>
+      </div>
+    <!-- </mat-card> -->
+    <div class="expanel-content">
+      <router-outlet></router-outlet>
+    </div>
+</div>
+<div class="expanel-main" *ngIf="validContractLoaded">
+  <div class="d-flex align-items-center justify-content-center container">
+    <mat-card class="popversion">
+        <mat-tab-group [color]="primary" [backgroundColor]="">
+            <mat-tab label="Commodity"></mat-tab>
+            <mat-tab label="Cities"> </mat-tab>
+          </mat-tab-group>
+    </mat-card>
+  </div>
+</div>
+<div class="expanel-main" *ngIf="validContractLoaded">
+    <div class="d-flex align-items-center container">
+        <mat-card class="extractorOption">
+            <mat-form-field>
+                <mat-select [(value)]="extractorSelectedOption">
+                  <mat-option value="CONV">Conversion</mat-option>
+                  <mat-option value="AMDT">Amendment</mat-option>
+                </mat-select>
+              </mat-form-field>
+        </mat-card>
+        <mat-card class="ml-2" *ngIf="extractorSelectedOption=='CONV'">
+          Conversion
+        </mat-card>
+        <mat-card class="ml-2" *ngIf="extractorSelectedOption=='AMDT'">
+          Amendment  
+        </mat-card>
+      </div>
+</div>
+<div class="expanel-main" *ngIf="validContractLoaded">
+  <div class="d-flex align-items-center justify-content-center container">
+    <mat-card class="popversion-2">
+        <div class="message-container mt-5">
+          <p class="text-center">Please wait...</p>
+          <p class="text-center">Converting resource file</p>
+        </div>
+        <div class="progress-container">
+            <div class="logo"></div>
+            <svg class="spinner" viewBox="25 25 50 50">
+              <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+            </svg>
+        </div>
+    </mat-card>
+  </div> 
+</div>

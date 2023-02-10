@@ -1,0 +1,52 @@
+ul,
+li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+}
+ul.loading-bar{
+      flex: 1 1;
+}
+button.btn-file-upload{
+      /* margin-right: 10px;
+      margin-left: 16px; */
+      padding: 0px 5px !important;
+}
+.mat-dialog-content{
+      padding-top: 5px;
+      padding-bottom: 5px;
+      overflow: hidden;
+}
+#file-label {
+      display: inline-flex;
+      vertical-align: middle;
+      font-size: 10px;
+      line-height: 18px;
+}
+.ex-mt-small{
+      margin-top: 7px;
+}
+#file-label mat-icon {
+      font-size: 18px;
+      text-align: center;
+}
+
+#file-label a {
+      cursor: pointer;
+}
+
+
+.small-form-container{
+      width: 500px !important;
+      
+    }
+    .viewport-center{
+      top: 40%;
+      left: 50%;
+      width: auto;
+      height: auto;
+      transform: translate(-50%,-50%);
+    }
+    .viewport-components{
+      height: calc(100vh - 135px);
+}

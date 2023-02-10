@@ -1,0 +1,18 @@
+.view-container{
+  width: 1000px !important;
+  margin: 10px auto;
+}
+.small-form-container{
+  width: 500px !important;
+}
+
+.center-form-container{
+  top:  calc(30vh - 0px);
+  left: 50%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%,-50%);
+  display: block;
+  position: relative;
+
+}

@@ -1,0 +1,18 @@
+.transparent-paginator{
+    background-color: transparent;
+  }
+
+.cdk-column-action{
+    flex: 0 0 80px;
+  }
+
+.view-container{
+    width: 1000px !important;
+    margin: 10px auto;
+}
+.table-view-content{
+  height: calc(100vh - 189px);
+}
+.table-view-card{
+  width: 100%;
+}

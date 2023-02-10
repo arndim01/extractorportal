@@ -1,0 +1,32 @@
+<div mat-dialog-title>Generate downloadable code</div>
+<div mat-dialog-content>
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-3">
+        <button mat-raised-button color="primary" (click)="StartUpload()">Upload</button>
+      </div>
+      <div class="col-9">
+        <div>
+            <mat-progress-bar  [value]="uploadProgress"></mat-progress-bar>
+        </div>
+      </div>
+    </div>
+    <div class="row contractUID" *ngIf="successUpload">
+      <mat-toolbar color="primary">
+          <mat-toolbar-row>
+              <span>Contract UID</span>
+            </mat-toolbar-row>
+      </mat-toolbar>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title >Please use below code to download converted file.</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <b><i>{{localUID}}</i></b>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions></div>

@@ -1,0 +1,54 @@
+.extractor-container{
+    width: 100%;
+    height: calc(100vh - 0px);
+}
+
+
+.small-form-container{
+    width: 500px !important;
+}
+.center-form-container{
+    top:  calc(40vh - 0px);
+    left: 50%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%,-50%);
+}
+
+#file-label {
+    display: inline-flex;
+    vertical-align: middle;
+    font-size: 12px;
+    line-height: 18px;
+}
+.main-bar-container{
+    width: 100%;
+}
+.container-row{
+    height: 100%;
+    width: 100%;
+}
+.side-bar{
+    width: 20%;
+    display: table-cell;
+    vertical-align: top;
+}
+.side-bar-content{
+    width: 89%;
+    display: table-cell;
+    vertical-align: top;
+    height: calc(100vh - 64px);
+}
+#contract-details{
+    background-color: #fff;
+    width: 100%;
+    height: auto;
+}
+
+.mat-tab-label-container .mat-tab-label {
+        opacity: 1;
+        padding: 0;
+} 
+.mat-tab-group.mat-primary .mat-ink-bar{
+          display: none;
+}

@@ -1,0 +1,8 @@
+.text-mat-form-field{
+    width: 90% !important;
+  }
+  .label-long-text{
+    max-height: 395px;
+    overflow-wrap: break-word;
+    overflow: auto;
+  }

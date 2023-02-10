@@ -1,0 +1,84 @@
+<div mat-dialog-title></div>
+<div class="rates_dialog" mat-dialog-content *ngIf="data != null">
+   
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+          <mat-panel-title>
+              Basic
+            </mat-panel-title>
+            <mat-panel-description>
+              Applicable City, Validity and Scope
+            </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p class="text-dark font-weight-bold font-monospace">{{data.arbs[4]}} Arbitrary</p>
+      <p class="text-dark font-weight-bold font-monospace">{{data.arbs[2]}}</p>
+      <p class="text-dark font-weight-bold font-monospace">{{data.arbs[3]}}</p>
+    <!-- DATA CONTAINER -->
+
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Arbs rate
+        </mat-panel-title>
+        <mat-panel-description>
+          Location, Misc. and Base rate
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="container">
+
+          <table>
+              <tr>
+                  <th>Inland</th>
+                  <th>Mode</th>
+                  <th>C_Notes</th>
+                  <th>#Notes</th>
+                  <th>HazType</th>
+                  <th>Service</th>
+                  <th>BR_20</th>
+                  <th>BR_40</th>
+                  <th>BR_40HC</th>
+                  <th>BR_45</th>
+                  <th>Cont_Type</th>
+                  <th>Currency</th>
+                </tr>
+                <tr *ngFor="let arb of data.arbs[5]">
+                  <td>{{arb[0]}}</td>
+                  <td>{{arb[2]}}</td>
+                  <td>{{arb[3]}}</td>
+                  <td>{{arb[4]}}</td>
+                  <td>{{arb[5]}}</td>
+                  <td *ngIf="arb[6] != null">{{arb[6]}}</td>
+                  <td *ngIf="arb[7] != null">{{arb[7]}}</td>
+                  <td>{{arb[8]}}</td>
+                  <td>{{arb[9]}}</td>
+                  <td>{{arb[10]}}</td>
+                  <td>{{arb[11]}}</td>
+                  <td>{{arb[12]}}</td>
+                  <td>{{arb[13]}}</td>
+                </tr> 
+          </table> 
+      </div>
+    <!-- DATA CONTAINER -->
+
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Notes
+          </mat-panel-title>
+          <mat-panel-description>
+            General notes and specific notes
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
+
+    <!-- DATA CONTAINER -->
+    
+  </mat-accordion>
+
+</div>
+<div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Close</button>
+</div>

@@ -1,0 +1,49 @@
+
+<div *ngIf="cities.length > 0" class="view-container">
+    <mat-card class="table-view-card table-view-content">
+        <mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="code">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"><p class="text-dark text-truncate">  {{row.CityCode}} </p></mat-cell>
+            </ng-container>
+        
+            <!-- Progress Column -->
+            <ng-container matColumnDef="names">
+            <mat-header-cell *matHeaderCellDef> City </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <mat-chip-list>
+                    <mat-chip *ngFor="let name of row.Unlocs | slice:0:4;" color="primary">
+                        {{name.Unloc}}
+                    </mat-chip>
+                </mat-chip-list>
+                <span class="others-chip" *ngIf="row.Unlocs.length > 4">
+                (+{{row.Unlocs.length - 4}})
+                </span>
+                <span *ngIf="row.Unlocs.length == 0"> <i class="fa fa-exclamation-triangle"></i> Missing City </span>
+            </mat-cell>
+            </ng-container>
+        
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                <mat-cell *matCellDef="let row" >
+                <mat-icon class="icon-button" (click)="openDialog(row)" fontSet="fa" fontIcon="fa-pencil"></mat-icon>
+            </mat-cell>
+            </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;">
+        </mat-row>
+    </mat-table>
+    </mat-card>
+    <div class="row table-view-actions">
+            <div class="row container">
+                    <div class="col-6 col-md-4 m-auto">
+                    </div>
+                    <div class="col-12 col-md-8 m-auto">
+                        <mat-paginator class="transparent-paginator" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                    </div>
+                </div>
+    </div>
+</div>
+<div *ngIf="cities.length == 0" class="view-container empty-container">
+        <h1>No Data Extracted</h1>
+    </div>

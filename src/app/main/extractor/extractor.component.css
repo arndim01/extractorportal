@@ -1,0 +1,22 @@
+mat-card{
+    padding: 0px;
+}
+mat-card.popversion{
+    min-width: 700px;
+    min-height: 400px;
+}
+mat-card.popversion-2{
+    min-width: 400px;
+    min-height: 150px;
+}
+mat-card.extractorOption{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.spinner{
+    width: 100px !important;
+    height: 100px !important;
+}
+.extract-menu{
+    background-color: #fff;
+}

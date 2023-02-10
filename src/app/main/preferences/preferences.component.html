@@ -1,0 +1,85 @@
+<div class="expanel-main">
+  <div class="expanel-content">
+    <h1>{{ userClaims.firstName }} {{ userClaims.lastName }}</h1>
+    <div class="row">
+      <div class="col-md-4">
+        <mat-card>
+          
+          <mat-card-header>
+            <mat-card-title><h3>Personal</h3></mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="form-group form-side-x-side">
+              <div class="form-side-label">
+                <label>Username</label>
+              </div>
+              <div class="form-side">
+                <input type="text" readonly class="form-control-plaintext"  [value]="userClaims.userName"  >
+              </div>
+            </div>
+            <div class="form-group form-side-x-side">
+                <div class="form-side-label">
+                  <label>Name</label>
+                </div>
+                <div class="form-side">
+                  <input type="text" readonly class="form-control-plaintext" [value]="userClaims.firstName + '&nbsp;' + userClaims.lastName">
+                </div>
+              </div>
+  
+              <div class="form-group form-side-x-side">
+                  <div class="form-side-label">
+                    <label>Email</label>
+                  </div>
+                  <div class="form-side">
+                    <input type="text" readonly class="form-control-plaintext" [value]="userClaims.email">
+                  </div>
+                </div>
+    
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="col-md-4">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title><h3>Credential</h3></mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+
+              <div class="form-group form-side-x-side">
+                  <div class="form-side-label">
+                    <label>Old Password</label>
+                  </div>
+                  <div class="form-side">
+                    <input type="password" class="form-control" [(ngModel)]="oldPass" required> 
+                  </div>
+                </div>
+
+                <div class="form-group form-side-x-side">
+                    <div class="form-side-label">
+                      <label>New Password</label>
+                    </div>
+                    <div class="form-side">
+                      <input type="password" class="form-control" [(ngModel)]="newPass" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group form-side-x-side">
+                      <div class="form-side-label">
+                        <label>Confirm Password</label>
+                      </div>
+                      <div class="form-side">
+                        <input type="password" class="form-control" [(ngModel)]="confirmPass" required>
+                      </div>
+                    </div>
+    
+
+
+          </mat-card-content>
+          <mat-card-actions>
+              <button mat-button (click)="sendUpdate()">Save</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

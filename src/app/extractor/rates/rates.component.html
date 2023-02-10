@@ -1,0 +1,41 @@
+<div *ngIf="dataSource.data.length > 0" class="view-container">
+    <mat-card class="table-view-card table-view-content">
+      <mat-table [dataSource]="dataSource" >
+        <ng-container matColumnDef="sco">
+            <mat-header-cell *matHeaderCellDef >Scope</mat-header-cell>
+            <mat-cell *matCellDef="let row"><p class="text-truncate text-dark">{{row[3]}}</p></mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="val">
+            <mat-header-cell *matHeaderCellDef >Validity</mat-header-cell>
+            <mat-cell *matCellDef="let row"><p class="text-truncate text-dark">{{row[0]}} - {{row[1]}}</p></mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="hea">
+            <mat-header-cell *matHeaderCellDef>Header</mat-header-cell>
+            <mat-cell *matCellDef="let row"><p class="text-truncate text-dark">{{row[2]}}</p></mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="tab">
+            <mat-header-cell *matHeaderCellDef>Location</mat-header-cell>
+            <mat-cell *matCellDef="let row"><p class="text-truncate text-dark">Row[{{row[8]}}]</p></mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+            <mat-cell *matCellDef="let row" >
+                <mat-icon class="icon-button" (click)="openDialog(row)" fontSet="fa" fontIcon="fa-pencil"></mat-icon>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;">
+          </mat-row>
+      </mat-table>
+    </mat-card>
+    <div class="row table-view-actions">
+        <div class="col-6 col-md-4 m-auto">
+          </div>
+          <div class="col-12 col-md-8 m-auto">
+            <mat-paginator class="transparent-paginator" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+          </div>
+    </div>
+</div>
+<div *ngIf="dataSource.data.length == 0" class="view-container empty-container">
+        <h1>No Data Extracted</h1>
+</div>

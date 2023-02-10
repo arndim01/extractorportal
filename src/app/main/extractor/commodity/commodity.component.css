@@ -1,0 +1,32 @@
+.r-paginator{
+    display: inline-block;
+    width: 100%;
+}
+mat-card{
+    padding: 0px;
+    /* margin-right: 10px; */
+}
+mat-row:hover{
+    cursor: pointer;
+}
+.mat-card-view{
+    min-height: 150px;
+}
+
+.mat-header-row {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    background-color: inherit;
+}
+.highlight{
+    background: #42A948; /* green */
+}
+.highlight .text-dark{
+    color : #fafafa !important;
+}
+
+.label-long-text{
+    overflow-wrap: break-word;
+    overflow: auto;
+  } 

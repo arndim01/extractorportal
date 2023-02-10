@@ -1,0 +1,22 @@
+.c-mat-form-field{
+    width: 100% !important;
+  }
+  .text-mat-form-field{
+      width: 95% !important;
+  }
+  
+  .text-wrap{
+      white-space: pre-wrap;
+  }
+  
+  .ex-label{
+    font-size: 10px !important;
+  }
+  .ex-label-small{
+    font-size: 8px !important;
+  }
+  .special-dialog-container{
+    max-height: 330px;
+    overflow: auto;
+    padding: 10px;
+  }

@@ -1,0 +1,98 @@
+<div class="extractor-container">
+    <div *ngIf="loadContract">
+        <mat-toolbar color="primary">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <span>menu</span>
+          
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="goToWorkflow()">
+              <mat-icon>dialpad</mat-icon>
+              <span>Workflow</span>
+            </button>
+              <button mat-menu-item (click)="New()">
+              <mat-icon>open_in_new</mat-icon>
+              <span >New</span>
+            </button>
+            </mat-menu>
+        </mat-toolbar>
+    </div>
+    <div *ngIf="!loadContract">
+        <mat-card class="small-form-container center-form-container" [@fadeInOut] = "uploadModel.state" >
+            <mat-progress-bar [value]="uploadModel.progress"></mat-progress-bar>
+            <span id="file-label" >{{uploadModel.description}}</span>
+        </mat-card>
+    </div>
+    <div *ngIf="loadContract" class="main-bar-container">
+        <div class="row container-row">
+            <div class="col-3">
+                <div id="contract-details">
+                    <mat-card>
+                        <mat-list>
+                            <h4 mat-subheader>Contract details</h4>
+                            <mat-list-item>
+                                <mat-icon fontSet="fa" fontIcon="fa-circle-o" mat-list-icon></mat-icon>
+                                <h2 mat-line>Carrier</h2>
+                                <p mat-line>{{contractDetailsService.value.Carrier}}</p>
+                            </mat-list-item>
+                            <mat-list-item>
+                                <mat-icon mat-list-icon>date_range</mat-icon>
+                                <h2 mat-line>Effective Date</h2>
+                                <p mat-line>{{contractDetailsService.value.EffectiveDate | date:'MM/d/yyyy'}}</p>
+                            </mat-list-item>
+                            <mat-list-item>
+                                <mat-icon mat-list-icon>date_range</mat-icon>
+                                <h2 mat-line>Expiration Date</h2>
+                                <p mat-line>{{contractDetailsService.value.ExpirationDate | date:'MM/d/yyyy'}}</p>
+                            </mat-list-item>
+                            <mat-list-item>
+                                    <mat-icon fontSet="fa" fontIcon="fa-hashtag" mat-list-icon></mat-icon>
+                                    <h2 mat-line>Contract Id</h2>
+                                    <p mat-line>{{contractDetailsService.value.ContractId}}</p>
+                            </mat-list-item>
+                            <mat-list-item>
+                                    <mat-icon fontSet="fa" fontIcon="fa-hashtag" mat-list-icon></mat-icon>
+                                    <h2 mat-line>Amendment Id</h2>
+                                    <p mat-line>{{contractDetailsService.value.AmendmentId}}</p>
+                            </mat-list-item>
+                            <mat-divider></mat-divider>
+                            <h4 mat-subheader></h4>
+                            <mat-list-item>
+                                    <button mat-raised-button color="primary"  (click)="Upload()">Download contract</button>
+                                    
+                                    <!--[matMenuTriggerFor]="upMenu" <mat-menu #upMenu="matMenu">
+                                        <button mat-menu-item >
+                                        <mat-icon>file_upload</mat-icon>
+                                        <span>Upload Only</span>
+                                    </button>
+                                        <button mat-menu-item>
+                                        <mat-icon>file_download</mat-icon>
+                                        <span >Upload and Download</span>
+                                    </button>
+                                    </mat-menu> -->
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-card>
+                </div>
+            </div>
+            <div class="col-9">
+                <div *ngIf="loadContract">
+                    <!-- <nav mat-tab-nav-bar color="primary">
+                        <a mat-tab-link
+                            *ngFor="let link of routeLinks"
+                            [routerLink]="link.path"
+                            routerLinkActive #rla="routerLinkActive"
+                            [active]="rla.isActive">
+                            {{link.label}}
+                        </a>
+                    </nav> -->
+                    <mat-tab-group  (selectedTabChange)="onLinkClick($event)">
+                        <mat-tab *ngFor="let link of routeLinks" label="{{link.label}}"></mat-tab>
+                    </mat-tab-group>
+                </div>
+                <router-outlet *ngIf="loadContract"></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>

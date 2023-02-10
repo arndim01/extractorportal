@@ -1,0 +1,147 @@
+<div mat-dialog-title></div>
+<div mat-dialog-content>
+  <div class="row">
+    <div class="col-6 special-dialog-container">
+        <div class="text-left custom-text-size-12 label-long-text text-wrap" >
+            {{data.rates.mainValue.split("@").join("\n")}}
+        </div>
+    </div>
+    <div class="col-6 special-dialog-container">
+      <mat-tab-group>
+          <mat-tab *ngFor="let item of data.rates.numberNotes"  label="Note {{item}}" >
+            
+              <mat-accordion>
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Date
+                      </mat-panel-title>
+                      <mat-panel-description>
+                        Specific Validity
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div class="container">
+                          <div class="row">
+                              <mat-form-field floatLabel="always">
+                                  <input matInput [matDatepicker]="effectivePicker" placeholder="Effective date">
+                                  <mat-datepicker-toggle matSuffix [for]="effectivePicker"></mat-datepicker-toggle>
+                                  <mat-datepicker #effectivePicker disabled="false"></mat-datepicker>
+                              </mat-form-field>
+                          </div>
+                          <div class="row">
+                              <mat-form-field floatLabel="always">
+                                  <input matInput [matDatepicker]="expirationPicker" placeholder="Expiration date">
+                                  <mat-datepicker-toggle matSuffix [for]="expirationPicker"></mat-datepicker-toggle>
+                                  <mat-datepicker #expirationPicker disabled="false"></mat-datepicker>
+                              </mat-form-field>
+                          </div>
+          
+                    </div>
+                  </mat-expansion-panel>
+                  <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Notes
+                        </mat-panel-title>
+                        <mat-panel-description>
+                          Specific Notes
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                      <div class="container">
+                        <div class="row">
+                            <mat-form-field class="text-mat-form-field custom-text-size-12" floatLabel="always">
+                                    <textarea matInput #excl placeholder="Contract Notes" matTextareaAutosize matAutosizeMinRows="2"
+                                              matAutosizeMaxRows="5"></textarea>
+                                  </mat-form-field>            
+                        </div>
+                      </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            Surcharge
+                          </mat-panel-title>
+                          <mat-panel-description>
+                            Specific Surcharges
+                          </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <div class="container">
+                          <div class="row">
+                              <form [formGroup]="conditionForm" class="c-mat-form-field">
+                                  <mat-form-field class="text-mat-form-field custom-text-size-12"> 
+                                      <input matInput
+                                      [matAutocomplete]="auto"
+                                      placeholder="Enter surcharge" 
+                                      formControlName='surchargeInput'>
+                                  </mat-form-field>
+                                  
+          
+                                  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="addSurcharge($event)">
+                                          <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option>
+                                          <ng-container *ngIf="!isLoading">
+                                            <mat-option *ngFor="let ccode of filteredCode" [value]="ccode">
+                                              <span class="ex-label">{{ ccode.Name }}</span>
+                                              <span class="ex-label-small"> - {{ ccode.Code }}</span>
+                                            </mat-option>
+                                          </ng-container>
+                                  </mat-autocomplete>
+                              </form>
+                          </div>
+                          <!-- <div class="row" *ngIf="data.pass[2] != null">
+                            <mat-list>
+                              <h3 *ngIf="(data.pass[2] | SurchargeIncluded).length > 0" mat-subheader>Included</h3>
+                              <mat-list-item  *ngFor="let surcharge of (data.pass[2] | SurchargeIncluded)">
+                                <mat-icon class="icon-button" mat-list-icon (click)="setSubjectTo(surcharge)">add</mat-icon>
+                                <mat-icon class="icon-button" mat-list-icon (click)="removeSurcharge(surcharge)">cancel</mat-icon>
+                                <p class="ex-label ex-p-list-width-220 text-truncate" mat-line>{{surcharge[2]}} - {{surcharge[1]}}</p>
+                              </mat-list-item>
+                              <mat-divider *ngIf="(data.pass[2] | SurchargeIncluded).length > 0 && (data.pass[2] | SurchargeNotIncluded).length > 0"></mat-divider>
+                              <h3 *ngIf="(data.pass[2] | SurchargeNotIncluded).length > 0" mat-subheader>Subject to</h3>
+                              <mat-list-item *ngFor="let surcharge of (data.pass[2] | SurchargeNotIncluded)">
+                                  <mat-icon class="icon-button" mat-list-icon (click)="setIncluded(surcharge)">remove</mat-icon>
+                                  <mat-icon class="icon-button" mat-list-icon (click)="removeSurcharge(surcharge)">cancel</mat-icon>
+                                  <p class="ex-label ex-p-list-width-220 text-truncate" mat-line>{{surcharge[2]}} - {{surcharge[1]}}</p>
+                                 
+                              </mat-list-item>
+                            </mat-list>
+                          </div> -->
+                        </div>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            Arbs Construct
+                          </mat-panel-title>
+                          <mat-panel-description>
+                            Specific Construction
+                          </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <div class="container">
+                          <div class="row">
+                              <mat-form-field>
+                                  <mat-select placeholder="Arbitrary construction">
+                                      <mat-option value="O-D">O-D</mat-option>
+                                      <mat-option value="O">O</mat-option>
+                                      <mat-option value="D">D</mat-option>
+                                    </mat-select>
+                              </mat-form-field>
+                          </div>
+                        </div>
+                      </mat-expansion-panel>
+          
+                </mat-accordion>     
+          
+          
+          </mat-tab>
+          
+      </mat-tab-group>
+     
+    </div>
+
+</div>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+  <button mat-flat-button color="primary" (click)="onNoClick()">Apply</button>
+</div>

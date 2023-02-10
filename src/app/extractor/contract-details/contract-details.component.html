@@ -1,0 +1,39 @@
+<div class="small-form-container center-form-container">
+    <mat-card>
+        <div class="row">
+            <div class="col-6">
+                <mat-form-field floatLabel="always">
+                    <input matInput [matDatepicker]="effectivePicker" placeholder="Effective date" [ngModel]="contractDetails.EffectiveDate | date:'yyyy-MM-dd'" (ngModelChange)="contractDetails.EffectiveDate = $event"  disabled>
+                    <mat-datepicker-toggle matSuffix [for]="effectivePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #effectivePicker disabled="false"></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-6">
+                <mat-form-field floatLabel="always">
+                    <input matInput [matDatepicker]="expirationPicker" placeholder="Expiration date" [ngModel]="contractDetails.ExpirationDate | date:'yyyy-MM-dd'" (ngModelChange)="contractDetails.ExpirationDate = $event" disabled>
+                    <mat-datepicker-toggle matSuffix [for]="expirationPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #expirationPicker disabled="false"></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+        <div class="col-6">
+            <mat-form-field floatLabel="always">
+                <input matInput placeholder="Contract Id" [(ngModel)]="contractDetails.ContractId">
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field floatLabel="always">
+                <input matInput placeholder="Amendment Id" [(ngModel)]="contractDetails.AmendmentId">
+            </mat-form-field>
+        </div>
+        </div>
+        
+        <div class="row table-view-actions">
+            <div class="col">
+                    <button mat-raised-button color="primary" (click)="Save()">Save</button>
+            </div>
+            
+        </div>
+    </mat-card>
+</div>

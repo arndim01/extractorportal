@@ -1,0 +1,47 @@
+<div mat-dialog-title><h5>Edit Commodity</h5></div>
+<div mat-dialog-content *ngIf="data.passData != null">
+<div class="container">
+        <div class="row">
+                <div class="col-6">
+                    <div class="text-left custom-text-size-12 label-long-text" >{{data.passData.main_value}}</div>
+                </div>
+                <div class="col-6">
+                        <perfect-scrollbar>
+                                <div class="container scroll-card">
+                                        <div class="row">
+                                                <mat-form-field class="text-mat-form-field custom-text-size-12">
+                                                <textarea matInput #code placeholder="Code" [(ngModel)]="data.passData.code"></textarea>
+                                                </mat-form-field>
+                                        </div>
+                                        <div class="row">
+                                                <mat-form-field class="text-mat-form-field custom-text-size-12" >
+                                                <textarea matInput #desc placeholder="Description" [(ngModel)]="data.passData.description"></textarea>
+                                                </mat-form-field>            
+                                        </div>
+                                        <div class="row">
+                                                <mat-form-field class="text-mat-form-field custom-text-size-12">
+                                                <textarea matInput #bdesc placeholder="Brief Description" [(ngModel)]="data.passData.bdescription"></textarea>
+                                                </mat-form-field>
+                                        </div>
+                                        <div class="row">
+                                                <mat-form-field class="text-mat-form-field custom-text-size-12" >
+                                                <textarea matInput #nac placeholder="Named Account" [(ngModel)]="data.passData.nac"></textarea>
+                                                </mat-form-field>            
+                                        </div>
+                                        <div class="row">
+                                                <mat-form-field class="text-mat-form-field custom-text-size-12" >
+                                                <textarea matInput #excl placeholder="Exclusions" [(ngModel)]="data.passData.exclusions"></textarea>
+                                                </mat-form-field>            
+                                        </div>
+                                </div>
+                        </perfect-scrollbar>
+                        
+                    
+                </div>
+        
+            </div>
+</div>
+</div>
+<div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Close</button>
+</div>

@@ -1,0 +1,43 @@
+.text-mat-form-field{
+    width: 100% !important;
+}
+.text-area-no-scroll{
+  overflow: hidden;
+}
+.text-wrap{
+    white-space: pre-wrap;
+}
+
+.ex-label{
+  font-size: 10px !important;
+}
+.ex-label-small{
+  font-size: 8px !important;
+}
+.special-dialog-container{
+  max-height: 500px;
+  overflow: auto;
+  padding: 10px;
+}
+.mat-dialog-content{
+  height: 500px;
+  max-height: 500px;
+}
+.block-view-mat-radio{
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+.flat-margin{
+  margin: 0 10px;
+}
+.inline-display{
+  display: inline-block;
+}
+.w-auto{
+  width: auto;
+}
+.text-rates{
+  width: 90px;
+}

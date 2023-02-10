@@ -1,0 +1,96 @@
+<div mat-dialog-title></div>
+<div class="rates_dialog" mat-dialog-content *ngIf="data != null">
+   
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+          <mat-panel-title>
+              Basic
+            </mat-panel-title>
+            <mat-panel-description>
+              Bullet, Validity, Commodity and Scope
+            </mat-panel-description>
+      </mat-expansion-panel-header>
+    <!-- DATA CONTAINER -->
+      <p class="text-dark font-weight-bold font-monospace">{{data.rates[2]}}</p>
+      <p class="text-dark font-weight-bold font-monospace">{{data.rates[3]}}</p>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Rates
+        </mat-panel-title>
+        <mat-panel-description>
+          Origin, Destination, Misc., Specific Notes and Base rate
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+    
+    <!-- DATA CONTAINER -->
+    <div class="container">
+      <div class="row" *ngFor="let rates of data.rates[5]; let i = index">
+        <table>
+          <tr>
+                <th colspan="7">{{rates[1].replace("|", " via ")}}</th>
+                <th colspan="6"> <div class="container special-note" ><button mat-raised-button *ngFor="let nnote of rates[3]" (click)="SpecialDialog(i, rates[2], nnote[1], 'RATELINE')" color="accent">Note {{nnote[0]}}</button></div></th>
+          </tr>
+          <tr>
+            <th>Destination</th>
+            <th>Via</th>
+            <th>Mode</th>
+            <th>C_Notes</th>
+            <th>#Notes</th>
+            <th>HazType</th>
+            <th>Service</th>
+            <th>BR_20</th>
+            <th>BR_40</th>
+            <th>BR_40HC</th>
+            <th>BR_45</th>
+            <th>Cont_Type</th>
+            <th>Currency</th>
+          </tr>
+          <tr *ngFor="let rate of rates[4]">
+            <td>{{rate[0]}}</td>
+            <td>{{rate[1]}}</td>
+            <td>{{rate[2]}}</td>
+            <td>{{rate[3]}}</td>
+            <td>{{rate[4]}}</td>
+            <td>{{rate[5]}}</td>
+            <td>{{rate[6]}}/{{rate[7]}}</td>
+          
+            <td>{{rate[8]}}</td>
+            <td>{{rate[9]}}</td>
+            <td>{{rate[10]}}</td>
+            <td>{{rate[11]}}</td>
+            <td>{{rate[12]}}</td>
+            <td>{{rate[13]}}</td>
+            <!-- <td><button mat-raised-button color="primary">Edit</button></td> -->
+          </tr> 
+        </table>
+        <br>
+      </div>
+    </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Notes
+          </mat-panel-title>
+          <mat-panel-description>
+            General notes
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <!-- DATA CONTAINER -->
+        <div class="container">
+          <div class="row" *ngIf="data.rates[6] != null">
+            <button mat-raised-button (click)="SpecialDialog(i, data.rates[6], data.rates[7], 'GLOBAL')" color="accent">Special Notes</button>    
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+    
+  </mat-accordion>
+
+</div>
+<div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Close</button>
+</div>

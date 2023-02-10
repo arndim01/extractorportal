@@ -1,0 +1,11 @@
+
+.mat-header-row {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    background-color: inherit;
+}
+mat-card{
+    padding: 0px;
+    margin-right: 10px;
+}

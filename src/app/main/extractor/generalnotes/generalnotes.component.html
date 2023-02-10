@@ -1,0 +1,80 @@
+<div class="container">
+    <div class="row">
+      <div class="col-8">
+        <mat-card>
+          <div class="container">
+              <!-- <button mat-flat-button color="primary">Upload Data</button> -->
+              <mat-paginator class="r-paginator" [pageSizeOptions]="[25, 50, 100]"></mat-paginator>
+          </div>
+        </mat-card>
+        <mat-card>
+          <perfect-scrollbar  style="max-height: 570px" class="mt-1">
+            <div class="container scroll-card">
+                <mat-table [dataSource]="dataSource">
+                    <!-- Main Column -->
+                    <ng-container matColumnDef="main_value">
+                      <mat-header-cell *matHeaderCellDef> Value </mat-header-cell>
+                      <mat-cell *matCellDef="let row"><p class="text-dark text-truncate custom-text-size-12">  {{  row.notesName.split("@").join(" ") == "" ? "N/A" : row.notesName.split("@").join(" ")  }} </p></mat-cell>
+                    </ng-container>
+                
+                    <!-- Message Column -->
+                    <!-- <ng-container matColumnDef="message">
+                      <mat-header-cell *matHeaderCellDef> Message </mat-header-cell>
+                      <mat-cell *matCellDef="let row"></mat-cell>
+                    </ng-container> -->
+                      
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlight': selectedRowIndex == row.hashName}" (click)="DisplayInfo(row)">
+                    </mat-row>
+                </mat-table>
+            </div>
+          </perfect-scrollbar>
+        </mat-card>
+      </div>
+      <div class="col-4" *ngIf="selectedRow">
+        <!-- <div class="d-flex justify-content-between mb-1">
+          <h4>Notes</h4>
+        </div> -->
+        <perfect-scrollbar [@fadeInAnimation] style="min-height: 400px; max-height: 590px;" [config]="config" *ngIf="(selected$ | async) as selected; else loading">
+          <div class="container custom-text-size-12">
+              <mat-card class="mat-card-view" >
+                  <div class="container">
+                    <div class="row d-flex justify-content-between mt-1">
+                      <h6>Note</h6> 
+                      <button mat-button (click)="OpenNotes(selected.general)">EDIT</button>
+                    </div>
+                    <div class="container"  >
+                      <div class="row d-flex justify-content-between">
+                        <small><b>Effective Date</b></small>
+                        <small class="text-editable">10/20/2018</small>
+                      </div>
+                      <div class="row d-flex justify-content-between">
+                        <small><b>Expiration Date</b></small>
+                        <small class="text-editable">10/30/2018</small>
+                      </div>
+                      <div class="row d-flex justify-content-between">
+                        <small><b>Contract Notes</b></small>
+                        <small class="text-editable">Service: CECX</small>
+                      </div>
+                      <div class="row d-flex justify-content-between"></div>
+                    </div>
+                  </div>              
+              </mat-card>
+              <mat-card class="mat-card-view mt-3 mb-1" *ngFor="let sp of selected.specific">
+                  <mat-card-content>
+                    <div class="container">
+                      <div class="row d-flex justify-content-between">
+                          <h6>Note {{sp.NumberNotes}}</h6>
+                          <button mat-button (click)="OpenNotes(sp)">EDIT</button>
+                      </div>
+                    </div>
+                  </mat-card-content>
+              </mat-card>
+          </div>
+        </perfect-scrollbar>
+        <ng-template #loading>
+            loading...
+        </ng-template>
+      </div>
+    </div>
+  </div>

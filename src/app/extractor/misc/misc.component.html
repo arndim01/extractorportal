@@ -1,0 +1,37 @@
+<div class="view-container">
+    <mat-card class="table-view-card table-view-content">
+      <mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="poi">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Pointer</mat-header-cell>
+            <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{row[11]}}</p></mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="haz">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Haz Type</mat-header-cell>
+            <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{row[6]}}</p></mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="sco">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Scope</mat-header-cell>
+            <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{row[8]}}</p></mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ser">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Service</mat-header-cell>
+            <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{row[9]}}/{{row[10]}}</p></mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+            <mat-cell *matCellDef="let row" ><button mat-button (click)="openDialog(row)" matTooltip="View data" matTooltipPosition="above" aria-label="View data" ><mat-icon fontSet="fa" fontIcon="fa-archive"></mat-icon></button></mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;">
+          </mat-row>
+      </mat-table>
+    </mat-card>
+    <div class="row table-view-actions">
+        <div class="col-6 col-md-4 m-auto">
+            <button mat-button routerLink="/extractor/start-tool" >Back</button>
+          </div>
+          <div class="col-12 col-md-8 m-auto">
+              <mat-paginator class="transparent-paginator" [hidePageSize]="true" [pageSize]="8"></mat-paginator>
+          </div>
+    </div>
+</div>

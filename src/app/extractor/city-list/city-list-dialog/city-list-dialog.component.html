@@ -1,0 +1,51 @@
+<div mat-dialog-title></div>
+<div mat-dialog-content>
+    <div class="row">
+      <div class="col-6">
+        <div class="text-left custom-text-size-12 label-long-text" cdkScrollable >
+            {{data.city.CityCode}}
+        </div>
+      </div>
+      <div class="col-6">
+        <form [formGroup]="unlocForm">
+            <div class="row">
+                <mat-form-field class="text-mat-form-field custom-text-size-12" floatLabel="always"> 
+                  <!-- <input matInput placeholder="Enter city"  [matChipInputFor]="cityList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  [matChipInputAddOnBlur]="addOnBlur"
+                  (matChipInputTokenEnd)="add($event)" > -->
+                  <input matInput
+                         [matAutocomplete]="auto"
+                         placeholder="Choose a city" 
+                         formControlName='cityInput'>
+                         <!-- formControlName='cityInput' -->
+                </mat-form-field>
+              </div>
+              <div class="row">
+                  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="addUnloc($event)">
+                      <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option>
+                      <ng-container *ngIf="!isLoading">
+                        <mat-option *ngFor="let unloc of filteredUnloc" [value]="unloc">
+                          <span>{{ unloc.City }}</span>
+                          <small> {{ unloc.State }}</small>
+                          <small> {{ unloc.Country }}</small>
+                          <small> {{unloc.Unloc}}</small>
+                        </mat-option>
+                      </ng-container>
+                    </mat-autocomplete>
+                <mat-chip-list #chipList class="chip-list-wrapper">
+                  <mat-chip *ngFor="let city of data.city.Unlocs" [selectable]="selectable"
+                            [removable]="removable" (removed)="remove(city)">
+                    {{city.Unloc}}
+                    <mat-icon matChipRemove *ngIf="removable && !city.Ge">cancel</mat-icon>
+                  </mat-chip>
+                </mat-chip-list>
+            </div>
+        </form>
+    </div>
+</div>
+
+</div>
+<div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Close</button>
+</div>

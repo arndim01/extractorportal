@@ -1,0 +1,81 @@
+<div class="expanel-main">
+    <div [hidden]="claimed.length == 0" class="expanel-subnav claimed-module">
+          <div class="expanel-card">
+            <div class="expanel-card-header">Claimed contracts</div>
+            <ul class="expanel-list-group expanel-list-group-flush">
+                <li *ngFor="let contract of claimed" (click)="setMode(contract)"  class="expanel-list-group-item expanel-list-group-item-action flex-column align-items-start">
+                    <div class="d-flex expanel-w-100 justify-content-between">
+                      <div class="mb-1">
+                        <h6 class="expanel-w-250px text-truncate">{{contract.Carrier}} {{contract.Contract_id}}</h6>
+                        <small>AMD: {{contract.Amd_id}}</small>
+                      </div>
+                    </div>
+                    <small>Started: {{contract.CreditedDate}}</small>
+                    <small *ngIf="contract.Contract_hash == CIK" [ngStyle]="{'color': 'red'}"> working...</small>
+                  </li>
+              </ul>
+          </div>
+      </div>
+      <div class="expanel-content">
+            <div class="row">
+                <div class="col-4">
+                    <h1> Active Contracts</h1>
+                </div>
+                <div class="col-8">
+                        <mat-form-field class="flex-column expanel-w-100">
+                                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search contract">
+                            </mat-form-field>
+                </div>
+            </div>
+          <div  class="border">
+              <!-- <mat-table [dataSource]="dataSource">
+                  <ng-container matColumnDef="carrier">
+                      <mat-header-cell *matHeaderCellDef >Carrier</mat-header-cell>
+                      <mat-cell *matCellDef="let row"><img class="small-icon rounded d-block" src="assets/images/{{row.carrierLogo}}" alt="{{row.carrierName}}" title="{{row.carrierName}}"/></mat-cell>
+                  </ng-container>= 
+                  <ng-container matColumnDef="contract_id">
+                      <mat-header-cell *matHeaderCellDef >Contract id</mat-header-cell>
+                      <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{row.contractId}}</p></mat-cell>
+                  </ng-container>
+                  <ng-c ontainer matColumnDef="amd_id">
+                      <mat-header-cell *matHeaderCellDef>Amd id</mat-header-cell>
+                      <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{row.amendmentId}}</p></mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="cont_type">
+                        <mat-header-cell *matHeaderCellDef>Process type</mat-header-cell>
+                        <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{row.contractType}}</p></mat-cell>
+                    </ng-container>
+                  <ng-container matColumnDef="created">
+                      <mat-header-cell *matHeaderCellDef>Created</mat-header-cell>
+                      <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{row.started | date: 'MM/dd/yyyy h:mm a'}}</p></mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="claimed">
+                    <mat-header-cell *matHeaderCellDef>Analyst</mat-header-cell>
+                    <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{row.claimedBy.firstName}}&nbsp;{{row.claimedBy.lastName}}</p></mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="started">
+                    <mat-header-cell *matHeaderCellDef>Started</mat-header-cell>
+                    <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{row.claimedDate | date: 'MM/dd/yyyy h:mm a'}}</p></mat-cell>
+                </ng-container>
+                  <ng-container matColumnDef="action">
+                      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                      <mat-cell *matCellDef="let row" >
+                          <mat-icon class="icon-button" (click)="setMode(row)" fontSet="fa" fontIcon="fa-pencil"></mat-icon>
+                      </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;">
+                    </mat-row>
+                </mat-table> -->
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+          </div>
+      </div>
+</div>
+<!-- <ng-template #loading class="container">
+    <div class="empty-data">
+        <img class="small-icon rounded mx-auto d-block" src="assets/images/icons8-sad-cloud-50.png">
+        <h3 class="title-label">No Workflow!</h3>
+        <p class="message-label">Please enjoy your day :)</p>
+    </div>
+</ng-template> -->
+      

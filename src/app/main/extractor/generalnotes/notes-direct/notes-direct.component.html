@@ -1,0 +1,280 @@
+<div mat-dialog-content>
+  <div class="row">
+    <div class="col-4 special-dialog-container">
+        <perfect-scrollbar>
+            <div class="scroll-card text-left custom-text-size-12 label-long-text text-wrap ">
+            
+              <div *ngIf="(mainValue$ | async) as value; else loading" >
+                  {{value.mainValue.split("@").join("\n")}}
+              </div>
+              <ng-template #loading>loading...</ng-template>
+            </div>
+
+           
+        </perfect-scrollbar>
+    </div>
+    <div class="col-8 special-dialog-container container" *ngIf="(systemValue$ | async) as value;">
+       
+            <mat-tab-group [color]="themeColor" [backgroundColor]="BgThemeColor">
+                <mat-tab label="Validity">
+                    <mat-card>
+                        <div class="container">
+                            <div class="row">
+                                <mat-form-field>
+                                    <input matInput [matDatepicker]="effectivePicker" placeholder="Effective date" [ngModel]="data.rates.ResultValue.effectiveDate | date:'yyyy-MM-dd'" (ngModelChange)="data.rates.ResultValue.effectiveDate = $event" >
+                                    <mat-datepicker-toggle matSuffix [for]="effectivePicker"></mat-datepicker-toggle>
+                                    <mat-datepicker #effectivePicker disabled="false"></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="row">
+                                <mat-form-field>
+                                    <input matInput [matDatepicker]="expirationPicker" placeholder="Expiration date" [ngModel]="data.rates.ResultValue.expirationDate | date:'yyyy-MM-dd'" (ngModelChange)="data.rates.ResultValue.expirationDate = $event">
+                                    <mat-datepicker-toggle matSuffix [for]="expirationPicker"></mat-datepicker-toggle>
+                                    <mat-datepicker #expirationPicker disabled="false"></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </mat-card>
+                </mat-tab>
+                <mat-tab label="Contract Notes">
+                    <perfect-scrollbar  style="height: 145px" [config]="config" class="mt-1">
+                        <div class="container mt-2">
+                            <div class="row">
+                              <mat-form-field class="text-mat-form-field" floatLabel="always">
+                                      <textarea class="text-area-no-scroll" matInput #excl placeholder="Contract Notes" matTextareaAutosize [(ngModel)]="data.rates.ResultValue.ContractNotes"></textarea>
+                                    </mat-form-field>            
+                            </div>
+                        </div>
+                    </perfect-scrollbar>
+                </mat-tab>
+                <mat-tab label="Commodity Additional">
+                    <perfect-scrollbar  style="height: 145px" [config]="config" class="mt-1">
+                        <div class="container mt-2">
+                            <div class="row">
+                              <mat-form-field class="text-mat-form-field" floatLabel="always">
+                                      <textarea class="text-area-no-scroll" matInput #excl placeholder="Commodity Additional" matTextareaAutosize [(ngModel)]="data.rates.ResultValue.CommodityAddtl"></textarea>
+                                    </mat-form-field>            
+                            </div>
+                        </div>
+                    </perfect-scrollbar>
+                </mat-tab>
+                <mat-tab label="Delivery">
+                    <div class="container mt-2">
+                        <div class="row">
+                            <mat-form-field>
+                                <mat-select placeholder="Arbitrary construction" [(ngModel)]="data.rates.ResultValue.ArbsConst" disableRipple>
+                                    <mat-option *ngFor="let v of value.RConstruct" value="v">{{v}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="row">
+                            <mat-form-field>
+                                <mat-select placeholder="Service" [(ngModel)]="data.rates.ResultValue.Service" disableRipple>
+                                    <mat-option *ngFor="let v of value.RService" value="v">{{v}}</mat-option>
+                                  </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Surcharge">
+                  <div class="container mt-2 custom-text-size-10">
+                    <h5>Find Surcharge  <small>{{  pickedSurcharge == null ? '' : '- ' + pickedSurcharge.name + " " + pickedSurcharge.code }}</small></h5>
+                    <div class="container">
+                      <div class="row">
+                          <div class="col">
+                            <form [formGroup]="conditionForm" class="c-mat-form-field">
+                                <mat-form-field class="text-mat-form-field custom-text-size-12"> 
+                                    <input matInput
+                                    [matAutocomplete]="auto"
+                                    placeholder="Enter surcharge" 
+                                    formControlName='surchargeInput'>
+                                </mat-form-field>
+                                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="addSurcharge($event)">
+                                        <mat-option *ngIf="isLoading" class="is-loading"><mat-spinner diameter="50"></mat-spinner></mat-option>
+                                        <ng-container *ngIf="!isLoading">
+                                        <mat-option *ngFor="let ccode of filteredCode" [value]="ccode">
+                                            <span class="ex-label">{{ ccode.name }}</span>
+                                            <span class="ex-label-small"> - {{ ccode.code }}</span>
+                                        </mat-option>
+                                        </ng-container>
+                                </mat-autocomplete>
+                            </form>
+                          </div>
+                          <div class="col">
+                              <section class="block-view-mat-radio">
+                                <label class="flat-margin w-auto" >Type:</label>
+                                <mat-radio-group [(ngModel)]="appType">
+                                  <mat-radio-button class="flat-margin" value="included">Included</mat-radio-button>
+                                  <mat-radio-button class="flat-margin" value="subject">Subject</mat-radio-button>
+                                  <mat-radio-button class="flat-margin" value="fixed">Fixed</mat-radio-button>
+                                </mat-radio-group>
+                              </section>
+                          </div>
+                      </div>
+                      <div class="row" *ngIf="appType == 'fixed'" >
+                        <div class="col-4">
+                            <h6>Base rates</h6>
+                            <div class="container">
+                                <mat-form-field class="text-rates" *ngIf="rall">
+                                        <input matInput placeholder="All amount" [(ngModel)]="rallvalue">
+                                    </mat-form-field>
+                                <mat-checkbox (change)="isSelectAllRate($event)" [(ngModel)]="rall" class="flat-margin inline-display">All</mat-checkbox>
+                            </div>
+                            <div class="container">
+                                <mat-form-field class="text-rates" *ngIf="r20">
+                                        <input matInput placeholder="20FT amount" [(ngModel)]="r20value">
+                                    </mat-form-field>
+                                <mat-checkbox [(ngModel)]="r20" [disabled]="rall" class="flat-margin inline-display">20FT</mat-checkbox>
+                            </div>
+                            <div class="container">
+                                <mat-form-field class="text-rates" *ngIf="r40">
+                                        <input matInput placeholder="40FT amount" [(ngModel)]="r40value">
+                                    </mat-form-field>
+                                <mat-checkbox [(ngModel)]="r40" [disabled]="rall" class="flat-margin inline-display">40FT</mat-checkbox>
+                            </div>
+                            <div class="container">
+                                    <mat-form-field class="text-rates" *ngIf="r40h">
+                                            <input matInput placeholder="40HC amount" [(ngModel)]="r40hvalue">
+                                        </mat-form-field>
+                                    <mat-checkbox [(ngModel)]="r40h" [disabled]="rall" class="flat-margin inline-display">40HC</mat-checkbox>
+                                </div>
+                                <div class="container">
+                                    <mat-form-field class="text-rates" *ngIf="r45">
+                                            <input matInput placeholder="45 amount" [(ngModel)]="r45value">
+                                        </mat-form-field>
+                                    <mat-checkbox [(ngModel)]="r45" [disabled]="rall" class="flat-margin inline-display">45</mat-checkbox>
+                                </div>
+                                <div class="container">
+                                    <mat-form-field class="text-rates" *ngIf="r45h">
+                                        <input matInput placeholder="45HC amount" [(ngModel)]="r45hvalue">
+                                        </mat-form-field>
+                                    <mat-checkbox [(ngModel)]="r45h" [disabled]="rall" class="flat-margin inline-display">45HC</mat-checkbox>
+                                </div>
+                        </div>
+                        <div class="col-8">
+                          <h6>Validity</h6>
+                          <div class="container">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <mat-form-field>
+                                            <input matInput [matDatepicker]="effectiveSurcharge" [(ngModel)]="effSurcharge" placeholder="Effective date" >
+                                            <mat-datepicker-toggle matSuffix [for]="effectiveSurcharge"></mat-datepicker-toggle>
+                                            <mat-datepicker #effectiveSurcharge disabled="false"></mat-datepicker>
+                                        </mat-form-field>
+                                </div>
+                                <div class="col-sm">
+                                    <mat-form-field>
+                                            <input matInput [matDatepicker]="expirationSurcharge" [(ngModel)]="expSurcharge" placeholder="Expiration date" >
+                                            <mat-datepicker-toggle matSuffix [for]="expirationSurcharge"></mat-datepicker-toggle>
+                                            <mat-datepicker #expirationSurcharge disabled="false"></mat-datepicker>
+                                        </mat-form-field>
+                                </div>
+                            </div>
+                          </div>
+                          <h6>Other options</h6>
+                          <div class="container">
+                            <div class="row ml-1">
+                                <mat-form-field>
+                                    <mat-select placeholder="Container" disableRipple  [(ngModel)]="container">
+                                        <mat-option *ngFor="let v of value.Container" value="{{v}}">{{v}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                          </div>
+                          <div class="container">
+                            <div class="row ml-1">
+                                <mat-form-field>
+                                        <mat-select placeholder="Currency" disableRipple [(ngModel)]="currency">
+                                            <mat-option *ngFor="let v of value.Currency" value="{{v}}">{{v}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                            </div>
+                          </div>
+                          <div class="container">
+                            <div class="row ml-1">
+                                <mat-form-field>
+                                        <mat-select placeholder="Basis" disableRipple [(ngModel)]="basis">
+                                            <mat-option *ngFor="let v of value.Basis" value="{{v}}">{{v}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <button mat-flat-button [disabled]="isSurchargePicked" color="primary" (click)="applySurcharge()">Apply</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="container mt-2" *ngIf="data.rates.ResultValue.surchargeOvs != null; else emptyValue"> 
+                    <h5>Applied</h5>
+                    <mat-table [dataSource]="dataSource" >
+                          <ng-container matColumnDef="surcharge">
+                              <mat-header-cell *matHeaderCellDef >Surcharge</mat-header-cell>
+                              <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{ row[1]     }}</p></mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="ship20">
+                              <mat-header-cell *matHeaderCellDef >20FT</mat-header-cell>
+                              <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{ row[2] != 'fixed' ? row[2] : row[3]  }}</p></mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="ship40">
+                              <mat-header-cell *matHeaderCellDef>40FT</mat-header-cell>
+                              <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{row[2] != 'fixed' ? row[2] : row[4]}}</p></mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="ship40hc">
+                              <mat-header-cell *matHeaderCellDef>40HC</mat-header-cell>
+                              <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{row[2] != 'fixed' ? row[2] : row[5]}}</p></mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="ship45">
+                              <mat-header-cell *matHeaderCellDef>45</mat-header-cell>
+                              <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{row[2] != 'fixed' ? row[2] : row[6]}}</p></mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="ship45hc">
+                              <mat-header-cell *matHeaderCellDef>45HC</mat-header-cell>
+                              <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{row[2] != 'fixed' ? row[2] : row[7]}}</p></mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="container">
+                              <mat-header-cell *matHeaderCellDef>Container</mat-header-cell>
+                              <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{ row[8] }}</p></mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="effective">
+                              <mat-header-cell *matHeaderCellDef>Effective</mat-header-cell>
+                              <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{ row[9] != '' ? row[9] : 'N/A' }}</p></mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="expiration">
+                              <mat-header-cell *matHeaderCellDef>Expiration</mat-header-cell>
+                              <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{ row[10] != '' ? row[10] : 'N/A' }}</p></mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="currency">
+                              <mat-header-cell *matHeaderCellDef>Currency</mat-header-cell>
+                              <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{row[11]}}</p></mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="basis">
+                              <mat-header-cell *matHeaderCellDef>Basis</mat-header-cell>
+                              <mat-cell *matCellDef="let row"><p class="custom-text-size-12 text-truncate text-dark">{{row[12]}}</p></mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="action">
+                              <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                              <mat-cell *matCellDef="let row" >
+                                  <mat-icon class="icon-button" (click)="removeSurcharge(row)" fontSet="fa" fontIcon="fa-trash"></mat-icon>
+                              </mat-cell>
+                            </ng-container>
+                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;">
+                            </mat-row>
+                        </mat-table>
+                        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                  </div>
+                  <ng-template #emptyValue>
+                    <div class="text-center">
+                        No Surcharges Applied
+                    </div>
+                   </ng-template>
+                </mat-tab>
+            </mat-tab-group>
+    </div>
+</div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Done</button>
+</div>

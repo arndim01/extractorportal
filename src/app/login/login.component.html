@@ -1,0 +1,41 @@
+<div class="main-login d-flex align-content-center flex-wrap">
+  <div class="container">
+      <div class="login-frame">
+        <div class="login-logo login-logo-loaded">
+            <img src="assets/images/logo2_ver2.png" alt="" class="login-logo-svg" >
+        </div>
+        <mat-card class="login-form login-form-loaded">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" >
+                <div class="form-group">
+                    <mat-form-field class="form-field-full-width">
+                        <input matInput placeholder="Username" formControlName="username" [ngClass]="{'is-valid':submitted && f.username.errors}">
+                        <mat-error *ngIf="submitted && f.username.errors">
+                            <div *ngIf="f.username.errors.required"> Username is <strong>required</strong></div>
+                        </mat-error>
+                    </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                    <mat-form-field class="form-field-full-width">
+                        <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" >
+                        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                        <mat-error *ngIf="submitted && f.password.errors"> 
+                            <div *ngIf="f.password.errors.required">Password is <strong>required</strong></div>
+                        </mat-error>
+                    </mat-form-field>          
+                    </div>
+                    <div class="login-buttons">
+                        <button [disabled]="loading" mat-raised-button color="accent">Sign in</button>
+                        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                    </div>
+            </form>
+        </mat-card>
+        <div class="login-footer">
+            <p class="font-monospace text-light text-center mt-2">Welcome to <strong>Extractor Panel</strong></p>
+          </div>
+        </div>
+       
+  </div>
+</div>
+    
+
+

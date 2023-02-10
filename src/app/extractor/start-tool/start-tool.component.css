@@ -1,0 +1,11 @@
+.start-tool-container{
+    width: 600px !important;
+    height: 275px !important;
+}
+.center-form-container{
+    top:  calc(30vh - 0px);
+    left: 50%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%,-50%);
+}

@@ -1,0 +1,116 @@
+<div class="container">
+<div class="row">
+  <div class="col-8">
+    <mat-card>
+      <div class="container">
+          <!-- <mat-radio-group>
+              <mat-radio-button [checked]="true" value="1">All</mat-radio-button>&nbsp;
+              <mat-radio-button value="2">Error/Warning</mat-radio-button>
+            </mat-radio-group> -->
+            <!-- <button mat-flat-button color="primary">Upload Data</button> -->
+            <mat-paginator class="r-paginator" [pageSizeOptions]="[25, 50, 100]"></mat-paginator>
+      </div>
+    </mat-card>
+    
+    <mat-card>
+    <perfect-scrollbar style="max-height: 570px;" class="mt-1">
+      <div class="container">
+        <mat-table [dataSource]="dataSource">
+            <!-- Code Column -->
+            <ng-container matColumnDef="main_value">
+              <mat-header-cell *matHeaderCellDef> Value </mat-header-cell>
+              <mat-cell *matCellDef="let row"><p class="text-dark text-truncate">  {{row.main_value}} </p></mat-cell>
+            </ng-container>
+        
+            <!-- Description Column -->
+            <!-- <ng-container matColumnDef="message">
+              <mat-header-cell *matHeaderCellDef> Message </mat-header-cell>
+              <mat-cell *matCellDef="let row"></mat-cell>
+            </ng-container> -->
+              <!-- Bullet Column -->
+              
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlight': selectedRow == row.id}" (click)="DisplayInfo(row)"></mat-row>
+        </mat-table>
+      </div>
+    </perfect-scrollbar>
+    
+    </mat-card>
+  </div>
+  <div class="col-4" *ngIf="selected" >
+    <div class="d-flex justify-content-between mb-1">
+        <h4>  </h4> 
+        <button mat-button (click)="OpenDialog(selected)">EDIT</button>
+    </div>
+    <!-- <div class="row">
+        <div class="col"></div>
+        <div class="col justify-left"></div>
+    </div> -->
+    <perfect-scrollbar [@fadeInAnimation] style="max-height: 590px;" [config]="config">
+      <div class="container custom-text-size-12">
+          <mat-card class="mat-card-view mt-2 mb-1">
+                <div class="container">
+                  <div class="row d-flex justify-content-between">
+                      <h6>Full Code</h6>
+                  </div>
+                  <div class="row">
+                    <div class="container">
+                        <small class="text-editable" >{{selected.code == '' ? 'N/A' : selected.code}}</small>
+                    </div>
+                  </div>
+                </div>
+          </mat-card>
+          <mat-card class="mat-card-view mt-2 mb-1">
+                <div class="container">
+                  <div class="row d-flex justify-content-between">
+                      <h6>Full Commodity</h6>
+                  </div>
+                  <div class="row">
+                    <div class="container">
+                        <small class="text-editable" >{{selected.description == '' ? 'N/A' : selected.description}}</small>
+                    </div>
+                  </div>
+                </div>
+          </mat-card>
+          <mat-card class="mat-card-view mt-2 mb-1">
+                <div class="container">
+                  <div class="row d-flex justify-content-between">
+                      <h6>Brief Commodity</h6>
+                  </div>
+                  <div class="row">
+                    <div class="container">
+                        <small class="text-editable" >{{selected.bdescription == '' ? 'N/A' : selected.bdescription}}</small>  
+                    </div>
+                  </div>
+                </div>
+          </mat-card>
+          <mat-card class="mat-card-view mt-2 mb-1">
+                <div class="container">
+                  <div class="row d-flex justify-content-between">
+                      <h6>Exclusions</h6>
+                  </div>
+                  <div class="row">
+                    <div class="container">
+                        <small class="text-editable" >{{selected.exclusions == '' ? 'N/A' : selected.exclusions }}</small>
+                    </div>
+                  </div>
+                </div>
+          </mat-card>
+          <mat-card class="mat-card-view mt-2 mb-1">
+                <div class="container">
+                  <div class="row d-flex justify-content-between">
+                      <h6>Named Accounts</h6>
+                  </div>
+                  <div class="row">
+                    <div class="container">
+                        <small class="text-editable" >{{selected.nac == '' ? 'N/A' : selected.nac}}</small>  
+                    </div>
+                  </div>
+                </div>
+          </mat-card>
+      </div>
+              
+    </perfect-scrollbar>
+  </div>
+</div>
+</div>

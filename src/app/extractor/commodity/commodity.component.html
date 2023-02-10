@@ -1,0 +1,58 @@
+
+<div *ngIf="commodities.length > 0"  class="view-container">
+      <mat-card class="table-view-card table-view-content">
+          <mat-table [dataSource]="dataSource">
+            <!-- Code Column -->
+            <ng-container matColumnDef="code">
+              <mat-header-cell *matHeaderCellDef> Code </mat-header-cell>
+              <mat-cell *matCellDef="let row"><p class="text-truncate text-dark">  {{row.Code}} </p></mat-cell>
+            </ng-container>
+        
+            <!-- Description Column -->
+            <ng-container matColumnDef="desc">
+              <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+              <mat-cell *matCellDef="let row"><p class="text-truncate text-dark"> {{row.Description}}</p></mat-cell>
+            </ng-container>
+        
+            <!-- Named Account Column -->
+            <ng-container matColumnDef="nac">
+              <mat-header-cell *matHeaderCellDef> Named Account </mat-header-cell>
+              <mat-cell *matCellDef="let row"><p class="text-truncate text-dark"> {{row.Nac}}</p> </mat-cell>
+            </ng-container>
+        
+            <!-- Exclusions Column -->
+            <ng-container matColumnDef="excl">
+              <mat-header-cell *matHeaderCellDef> Exclusions </mat-header-cell>
+              <mat-cell *matCellDef="let row" ><p class="text-truncate text-dark"> {{row.Exclusions}}</p> </mat-cell>
+            </ng-container>
+
+             <!-- Bullet Column -->
+              
+
+            <ng-container matColumnDef="action">
+              <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+              <mat-cell *matCellDef="let row" >
+                <mat-icon class="icon-button" (click)="openDialog(row)" fontSet="fa" fontIcon="fa-pencil"></mat-icon>
+              </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;">
+            </mat-row>
+        
+          </mat-table>
+        </mat-card>
+        <div class="row table-view-actions">
+            <div class="col-6 col-md-4 m-auto">
+               
+              </div>
+              <div class="col-12 col-md-8 m-auto">
+                <mat-paginator class="transparent-paginator"
+                [pageSizeOptions]="[5, 10, 25, 100]"
+                
+                ></mat-paginator>
+              </div>
+        </div>
+</div>
+<div *ngIf="commodities.length == 0" class="view-container empty-container">
+    <h1>No Data Extracted</h1>
+</div>
